@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import React, { useState } from "react";
-import Login from './Login';
-import useMqtt from './useMqtt';
-import { sendPlugCommand } from './MqttClient';
+// import Login from './Login';
+// import useMqtt from './useMqtt';
+// import { sendPlugCommand } from './MqttClient';
+// import { setTempCallback } from './MqttClient';
 import "./App.css";
 
 function App() {
@@ -24,8 +25,8 @@ function App() {
         {/* Kitchen Plug */}
         <div className="device-card">
           <h3>Kitchen Plug</h3>
-          <button onClick={() => sendPlugCommand('kitchen', 'on')}>Turn On</button>
-          <button onClick={() => sendPlugCommand('kitchen', 'off')}>Turn Off</button>
+          {/* <button onClick={() => sendPlugCommand('kitchen', 'on')}>Turn On</button>
+          <button onClick={() => sendPlugCommand('kitchen', 'off')}>Turn Off</button> */}
           <button onClick={() => setKitchenPlug(!kitchenPlug)}>
             {kitchenPlug ? "Turn Off" : "Turn On"}
           </button>
@@ -34,8 +35,8 @@ function App() {
         {/* James' Bedroom Plug */}
         <div className="device-card">
           <h3>James' Bedroom Plug</h3>
-          <button onClick={() => sendPlugCommand('bedroom' , 'on')}>Turn On</button>
-          <button onClick={() => sendPlugCommand('bedroom', 'off')}>Turn Off</button>
+          {/* <button onClick={() => sendPlugCommand('bedroom' , 'on')}>Turn On</button>
+          <button onClick={() => sendPlugCommand('bedroom', 'off')}>Turn Off</button> */}
           <button onClick={() => setBedroomPlug(!bedroomPlug)}>
             {bedroomPlug ? "Turn Off" : "Turn On"}
           </button>
@@ -44,24 +45,19 @@ function App() {
         {/* Dungeon Plug */}
         <div className="device-card">
           <h3>Dungeon Plug</h3>
-          <button onClick={() => sendPlugCommand('dungeonPlug', 'on')}>Turn On</button>
-          <button onClick={() => sendPlugCommand('dungeonPlug', 'off')}>Turn Off</button>
+          {/* <button onClick={() => sendPlugCommand('dungeonPlug', 'on')}>Turn On</button>
+          <button onClick={() => sendPlugCommand('dungeonPlug', 'off')}>Turn Off</button> */}
           <button onClick={() => setDungeonPlug(!dungeonPlug)}>
             {dungeonPlug ? "Turn Off" : "Turn On"}
           </button>
         </div>
 
-         {/* Dungeon Heating */}
-         <div className="device-card">
+        {/* Dungeon Heating */}
+        <div className="device-card">
           <h3>Dungeon Heating</h3>
-          <input
-            type="range"
-            min="-273"
-            max="7200"
-            value={dungeonTemp}
-            onChange={(e) => setDungeonTemp(e.target.value)}
-          />
-          <p>{dungeonTemp}°C</p>
+          <p style={{ fontSize: '2rem'}}>
+            {dungeonTemp}°C
+          </p>
         </div>
 
         {/* Add Device Demo Card */}
@@ -69,7 +65,6 @@ function App() {
           <span className="add-icon">+</span>
           <p>Add Device</p>
         </div>
-
       </div>
     </div>
   );
