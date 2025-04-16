@@ -65,23 +65,6 @@ body {
   background: darkgreen; /* Darker green for hover effect */
 }
 
-.device-card input[type="range"] {
-  width: 100%;
-  margin: 1rem 0;
-  background: #3e4b47; /* Dark grey-green for the slider background */
-  border-radius: 1rem;
-  height: 10px;
-  outline: none;
-}
-
-.device-card input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #81c784; /* Light green for slider thumb */
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 p {
   font-size: 1.2rem;
   font-weight: bold;
@@ -109,4 +92,21 @@ p {
   color: beige;
   font-weight: bold;
   margin: 0;
+}
+
+.logout-button {
+  align-self: flex-end;
+  margin: 2rem 2rem 0 auto;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: #c62828;
+  color: beige;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+  background: #8e0000;
 }

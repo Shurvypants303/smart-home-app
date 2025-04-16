@@ -1,24 +1,62 @@
 import logo from './logo.svg';
 import React, { useState } from "react";
-// import Login from './Login';
-// import useMqtt from './useMqtt';
-// import { sendPlugCommand } from './MqttClient';
-// import { setTempCallback } from './MqttClient';
 import "./App.css";
+import LoginPage from './LoginPage';
+import { auth } from "./firebase";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+
 
 function App() {
   // State for each smart plug
+  const [loggedIn, setLoggedIn] = useState(false);
   const [kitchenPlug, setKitchenPlug] = useState(false);
   const [bedroomPlug, setBedroomPlug] = useState(false);
   const [dungeonPlug, setDungeonPlug] = useState(false);
+  const [dungeonTemp, setDungeonTemp] = useState(18);
 
-  // State for thermostat
-  const [dungeonTemp, setDungeonTemp] = useState(20);
+  // Firebase login state
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
+
+  // Login handler
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      setUser(userCredential.user);
+    } catch (error) {
+      if (error.code === 'auth/user-not-found') {
+        alert("No user found with that email.");
+      } else if (error.code === 'auth/wrong-password') {
+        alert("Incorrect password.");
+      } else {
+        alert("Login failed: " + error.message);
+      }
+    }
+  };
+  
+
+  // Logout handler
+  const handleLogout = async () => {
+    await signOut(auth);
+    setUser(null);
+  };
+
+  if (!loggedIn) {
+    return <LoginPage onLogin={() => setLoggedIn(true)} />;
+  }
 
   return (
     <div className="app-container">
       {/* Navbar */}
       <nav className="navbar">Welcome to your Piethon Smart Home</nav>
+
+      {loggedIn && (
+      <button className="logout-button" onClick={() => setLoggedIn(false)}>
+       Logout
+      </button>
+      )}
 
       {/* Dashboard Grid */}
       <div className="dashboard">
@@ -55,7 +93,7 @@ function App() {
         {/* Dungeon Heating */}
         <div className="device-card">
           <h3>Dungeon Heating</h3>
-          <p style={{ fontSize: '2rem'}}>
+          <p style={{ fontSize: '50px', margin: 0}}>
             {dungeonTemp}°C
           </p>
         </div>
